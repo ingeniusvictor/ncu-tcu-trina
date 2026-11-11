@@ -7,7 +7,13 @@
 - [x] Powerway **Tracker Test for Customer V5.2.2** (equivalente TCU según operador).
 - [x] Arctech **Tracker AI Controller, archivo 20230101-1**: un EXE WPF que contiene módulos `Tracker` y `ComBoxTabItem`.
 
-## Lo que quedó por confirmar de Arctech
+## Nueva prioridad operativa
+
+**No se requieren más capturas ni pruebas de Arctech por ahora.** La secuencia acordada es **Trina primero y Powerway después**. Solicitar capturas anonimizadas de las herramientas originales de Trina y Powerway, modelos/firmware, enlace físico y manual de lectura de solo estado. Ver [prioridades](PRIORIDADES_TRINA_POWERWAY.md).
+
+Se recibieron capturas de Arctech **Tracker, LoRa y Scan**. `LoRa` muestra parámetros de módulo radio EBYTE, `Scan` muestra 3 columnas vacías y rango visible 1–150; esto **no certifica la función CommBox**. [Detalle](REFERENCIA_UI_ARCTECH_LORA_SCAN_2026-11-11.md).
+
+## Referencia diferida de Arctech
 - [ ] ¿El mismo programa permite ejecutar **todas** las funciones de la antigua herramienta CommBox, o solo muestra una pestaña relacionada? Captura o manual de usuario sin datos sensibles.
 - [ ] Modelos y versiones firmware de AI Controller/Control Box y CommBox donde se utiliza este programa.
 - [ ] Si conservas los EXE *separados* antiguos, compartirlos es **opcional** para completar la comparación; **ya no es necesario subir de nuevo el programa combinado**.
