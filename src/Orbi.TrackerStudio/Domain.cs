@@ -17,15 +17,16 @@ public sealed record ManufacturerDefinition(
     string DeviceFamilies,
     bool LiveTelemetryValidated = false,
     bool SafeAutoDetectionValidated = false,
-    bool CommandsValidated = false) : ITrackerAdapter;
+    bool CommandsValidated = false,
+    string DevelopmentPriority = "REFERENCIA") : ITrackerAdapter;
 
 public static class AdapterCatalog
 {
     public static IReadOnlyList<ManufacturerDefinition> All { get; } = new[]
     {
-        new ManufacturerDefinition("trina", "Trina Solar", "NCU / TCU"),
-        new ManufacturerDefinition("powerway", "Powerway", "Modelos pendientes"),
-        new ManufacturerDefinition("arctech", "Arctech Solar", "AI Controller / CommBox (revisión pendiente)")
+        new ManufacturerDefinition("trina", "Trina Solar", "NCU / TCU", DevelopmentPriority: "P1 — integración prioritaria"),
+        new ManufacturerDefinition("powerway", "Powerway", "Communication Box / Tracker", DevelopmentPriority: "P2 — integración siguiente"),
+        new ManufacturerDefinition("arctech", "Arctech Solar", "AI Controller / CommBox (sin validar)", DevelopmentPriority: "REFERENCIA — integración diferida")
     };
 }
 
