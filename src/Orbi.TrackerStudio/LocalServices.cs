@@ -31,6 +31,7 @@ public static class PortInventory
 
 public static class LocalJournal
 {
+    private static bool _unreadableJournal;
     private static readonly string DirectoryPath =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ORBI", "TrackerStudio");
     public static string FilePath => Path.Combine(DirectoryPath, "notes.json");
@@ -45,13 +46,16 @@ public static class LocalJournal
         }
         catch
         {
-            // Do not overwrite unreadable journals; notify the operator if writing fails later.
+            // Preserve an unreadable journal rather than silently overwriting it later.
+            _unreadableJournal = true;
             return new List<JournalEntry>();
         }
     }
 
     public static void Save(IEnumerable<JournalEntry> entries)
     {
+        if (_unreadableJournal)
+            throw new InvalidOperationException("Existe una bitácora que no se pudo leer. Haz un respaldo de notes.json antes de continuar.");
         Directory.CreateDirectory(DirectoryPath);
         var content = JsonSerializer.Serialize(entries, new JsonSerializerOptions { WriteIndented = true });
         var temporaryPath = FilePath + ".tmp";
