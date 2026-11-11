@@ -193,7 +193,10 @@ public sealed class MainWindow : Form
     {
         var product = SoftwareCatalog.Find(_selected.Id, family);
         var title = family == "NCU" ? "NCU / Caja central de comunicaciones" : "TCU / Controlador de seguimiento";
-        var caption = "Vista informativa. El programa de fábrica NO está conectado ni integrado por protocolo.";
+        var caption = product is null
+            ? "No hay software del fabricante catalogado para esta función. Sin telemetría real."
+            : "Referencia estática: " + product.OriginalProduct + " · " + product.Version
+                + "  |  NO conectado · NO validado · DEMO";
         var panel = PageFrame(title + " — " + _selected.DisplayName, caption);
         if (family == "TCU")
         {
