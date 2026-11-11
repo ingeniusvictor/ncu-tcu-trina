@@ -49,3 +49,13 @@ Estas referencias son evidencia de una **interfaz con funciones diversas**, no p
 - Solicitar el nombre y revisión del hardware Arctech en el que se usa ese ejecutable.
 
 **No se incorporó al repositorio público el ejecutable de terceros.**
+
+## Nueva evidencia visual: pantalla Tracker
+
+El 2026-11-11 se recibió una **captura de la ventana AI Track Controller** con título TRACKER y `Ver:20230101`. La barra lateral muestra `Tracker`, `LoRa`, `Scan`, `Upgrade`, `Broadcast`, `Debug` y `About`. Se ven bloques **Information**, **Parameter** y **Alarm**, además de controles de modos y parámetros.
+
+**Corrección importante de alcance:** en esta captura **no aparece una pestaña CommBox autónoma**. `ControlBox` es el nombre de un grupo de parámetros del controlador; no basta para afirmar que representa la NCU/CommBox. Los símbolos `ComBoxTabItem` y `ComBoxButton` del análisis estático siguen siendo relevantes, pero no prueban que el programa incluya todas las funciones de la aplicación CommBox antigua.
+
+La captura también presenta simultáneamente `Click To Open` y una luz verde `Normal`. Por eso no deben interpretarse ni la luz ni los valores del formulario como prueba de conexión o de lecturas válidas.
+
+El detalle de campos, alarmas originales, traducciones y distribución está registrado en [Referencia UI Arctech Tracker](REFERENCIA_UI_ARCTECH_TRACKER_2026-11-11.md). La captura **no se subió al repositorio público**.
