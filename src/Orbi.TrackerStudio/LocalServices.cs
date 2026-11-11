@@ -60,6 +60,8 @@ public static class LocalJournal
         var content = JsonSerializer.Serialize(entries, new JsonSerializerOptions { WriteIndented = true });
         var temporaryPath = FilePath + ".tmp";
         File.WriteAllText(temporaryPath, content, new UTF8Encoding(false));
+        // Preserve the most recent readable version in case of accidental overwrite.
+        if (File.Exists(FilePath)) File.Copy(FilePath, FilePath + ".bak", true);
         File.Move(temporaryPath, FilePath, true);
     }
 }
@@ -86,6 +88,31 @@ public static class DemoCsvExporter
     {
         var value = raw ?? "";
         // Prevent accidental spreadsheet formula evaluation on exported text.
+        if (value.Length > 0 && "=+-@\t\r".Contains(value[0])) value = "'" + value;
+        return "\"" + value.Replace("\"", "\"\"") + "\"";
+    }
+}
+
+
+public static class JournalCsvExporter
+{
+    public static void Write(string destination, IEnumerable<JournalEntry> entries)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("Fecha;Fabricante;Nota");
+        foreach (var entry in entries)
+        {
+            sb.AppendLine(string.Join(";", new[]
+            {
+                Cell(entry.Fecha), Cell(entry.Fabricante), Cell(entry.Nota)
+            }));
+        }
+        File.WriteAllText(destination, sb.ToString(), new UTF8Encoding(true));
+    }
+
+    private static string Cell(string? raw)
+    {
+        var value = (raw ?? "").Replace("\r\n", "\n").Replace('\r', '\n');
         if (value.Length > 0 && "=+-@\t\r".Contains(value[0])) value = "'" + value;
         return "\"" + value.Replace("\"", "\"\"") + "\"";
     }
