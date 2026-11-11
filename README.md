@@ -8,7 +8,7 @@ Proyecto comunitario en fase temprana para técnicos e ingenieros de operación 
 ## Fabricantes contemplados
 - Trina Solar: ejecutables NCU Monitor 2.71 y TCU V2.73 Multi disponibles para análisis estático privado.
 - Powerway: analizados Communication Box V2.161 (NCU equivalente) y Tracker Test for Customer V5.2.2 (TCU equivalente); protocolos y modelos pendientes de validar.
-- Arctech Solar (alias de terreno «Artech»): analizado Tracker AI Controller (archivo 20230101-1, versión interna 1.0.0.0) con secciones Tracker y ComBox; **cobertura real del CommBox anterior pendiente de verificar**.
+- Arctech Solar (alias de terreno «Artech»): analizado Tracker AI Controller (archivo 20230101-1, versión interna 1.0.0.0) con pantalla Tracker confirmada y referencias internas a ComBox; **no se ha observado una pantalla CommBox autónoma ni comprobado paridad con la herramienta antigua**.
 
 **La semejanza de las pantallas no demuestra compatibilidad de protocolos.** Cada modelo/revisión/firmware deberá validarse individualmente.
 
@@ -18,7 +18,7 @@ Se incorporó el inventario de `Communication Box V2.161` (NCU equivalente) y `T
 
 ## Análisis confirmado de Arctech (11-11-2026)
 
-El archivo `Tracker_AI_Controller_20230101-1.exe` contiene componentes `ComBoxTabItem`, `ComBoxButton` y controles de tracker bajo una aplicación .NET WPF. Los [hallazgos estáticos](docs/ANALISIS_ARCTECH_2026-11-11.md) son consistentes con una interfaz de ambos ámbitos dentro de un EXE, **sin demostrar que la nueva aplicación reemplaza íntegramente los dos programas antiguos**. Un anexo técnico antiguo de Arctech documenta dos herramientas separadas. Se añadieron referencias a la misma aplicación en el catálogo para ambas vistas NCU y TCU, sin implementar conexión real.
+El archivo `Tracker_AI_Controller_20230101-1.exe` contiene componentes `ComBoxTabItem`, `ComBoxButton` y controles de tracker bajo una aplicación .NET WPF. Los [hallazgos estáticos](docs/ANALISIS_ARCTECH_2026-11-11.md) muestran componentes relacionados con ambos ámbitos, pero la [captura de la interfaz](docs/REFERENCIA_UI_ARCTECH_TRACKER_2026-11-11.md) solo confirma la pantalla Tracker; **la sustitución completa del software CommBox antiguo sigue sin demostrarse**. Un anexo técnico antiguo de Arctech documenta dos herramientas separadas. Se añadieron referencias a la misma aplicación en el catálogo para ambas vistas NCU y TCU, sin implementar conexión real.
 
 ## Cómo ejecutar en Windows
 
