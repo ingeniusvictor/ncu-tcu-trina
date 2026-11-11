@@ -206,22 +206,22 @@ public sealed class MainWindow : Form
         {
             var software = product is null
                 ? "No se ha recibido el ejecutable original de este fabricante."
-                : "Referencia original: " + product.OriginalProduct + " v" + product.Version + ".\\n"
+                : "Referencia original: " + product.OriginalProduct + " v" + product.Version + ".\n"
                     + "Funciones detectadas por análisis estático: " + product.ObservedFunctions + ".";
             var info = new RichTextBox
             {
                 Dock = DockStyle.Fill, BorderStyle = BorderStyle.None,
                 ReadOnly = true, BackColor = PanelColor,
                 ForeColor = TextColor, Font = new Font("Segoe UI", 12f),
-                Text = "MÓDULO CENTRAL — " + _selected.DisplayName + "\\n\\n"
-                    + software + "\\n\\n"
-                    + "ETAPA ACTUAL: catálogo informativo, sin telemetría real.\\n"
-                    + "Conexión serial: NO ABIERTA.\\n"
-                    + "Identificación de hardware: SIN VALIDAR.\\n"
-                    + "Escritura de parámetros / órdenes grupales: NO IMPLEMENTADA.\\n\\n"
-                    + "Próxima validación: consultar identidad y estado mediante operaciones\\n"
-                    + "documentadas de solo lectura en banco supervisado.\\n\\n"
-                    + "ATENCIÓN: las pantallas similares entre marcas no garantizan\\n"
+                Text = "MÓDULO CENTRAL — " + _selected.DisplayName + "\n\n"
+                    + software + "\n\n"
+                    + "ETAPA ACTUAL: catálogo informativo, sin telemetría real.\n"
+                    + "Conexión serial: NO ABIERTA.\n"
+                    + "Identificación de hardware: SIN VALIDAR.\n"
+                    + "Escritura de parámetros / órdenes grupales: NO IMPLEMENTADA.\n\n"
+                    + "Próxima validación: consultar identidad y estado mediante operaciones\n"
+                    + "documentadas de solo lectura en banco supervisado.\n\n"
+                    + "ATENCIÓN: las pantallas similares entre marcas no garantizan\n"
                     + "interoperabilidad de protocolos, firmware ni límites de seguridad."
             };
             panel.Controls.Add(info, 0, 1);
