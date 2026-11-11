@@ -1,4 +1,4 @@
-name: Windows build
+name: Windows build & offline smoke
 
 on:
   push:
@@ -10,20 +10,25 @@ permissions:
   contents: read
 
 jobs:
-  build-win-x64:
+  build-and-test-win-x64:
     runs-on: windows-latest
+    timeout-minutes: 20
     steps:
-      - name: Obtener repositorio
+      - name: Obtener código
         uses: actions/checkout@v4
-      - name: Instalar .NET 8
+      - name: Preparar .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Compilar
-        run: dotnet build src/Orbi.TrackerStudio/Orbi.TrackerStudio.csproj --configuration Release
-      - name: Crear versión portátil para Windows x64
+      - name: Restaurar dependencias
+        run: dotnet restore tests/Orbi.TrackerStudio.Smoke/Orbi.TrackerStudio.Smoke.csproj
+      - name: Compilar interfaz y comprobaciones
+        run: dotnet build tests/Orbi.TrackerStudio.Smoke/Orbi.TrackerStudio.Smoke.csproj --configuration Release --no-restore
+      - name: Comprobaciones del núcleo desconectado
+        run: dotnet run --project tests/Orbi.TrackerStudio.Smoke/Orbi.TrackerStudio.Smoke.csproj --configuration Release --no-build
+      - name: Publicar versión portátil Windows x64
         run: dotnet publish src/Orbi.TrackerStudio/Orbi.TrackerStudio.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true --output release/win-x64
-      - name: Adjuntar artefacto
+      - name: Adjuntar ejecutable de la aplicación
         uses: actions/upload-artifact@v4
         with:
           name: ORBI-Tracker-Studio-win-x64
