@@ -205,10 +205,53 @@ public sealed class MainWindow : Form
         layout.Controls.Add(SectionHeader("Bitácora local del operador", "Las notas son tuyas; no son registros automáticos de equipos."), 0, 0);
 
         var input = new Panel { Dock = DockStyle.Fill, BackColor = RaisedColor };
-        var editor = new TextBox { Multiline = true, ScrollBars = ScrollBars.Vertical, BackColor = Color.White,
-            ForeColor = Color.Black, SetBoundsPlaceholder = 0 };
-        // SetBoundsPlaceholder is intentionally replaced in the build before release.
+        var editor = new TextBox
+        {
+            Multiline = true, ScrollBars = ScrollBars.Vertical, BackColor = Color.White,
+            ForeColor = Color.Black, Left = 10, Top = 10, Height = 82, Width = 650,
+            Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
+        };
+        var save = MakeButton("Guardar nota", AccentColor, 670, 32, 134, 42, darkText: true);
+        save.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        input.Resize += (_, _) =>
+        {
+            save.Left = Math.Max(300, input.ClientSize.Width - 150);
+            editor.Width = Math.Max(200, save.Left - 25);
+        };
+        save.Click += (_, _) =>
+        {
+            var text = editor.Text.Trim();
+            if (text.Length == 0)
+            {
+                MessageBox.Show(this, "Escribe una observación antes de guardar.", "Bitácora",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var entry = new JournalEntry
+            {
+                Fecha = DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz"),
+                Fabricante = _selected.DisplayName,
+                Nota = text
+            };
+            var backup = _journal.ToList();
+            _journal.Add(entry);
+            try
+            {
+                LocalJournal.Save(_journal);
+                SwitchPage("Bitácora");
+            }
+            catch (Exception ex)
+            {
+                _journal.Clear();
+                _journal.AddRange(backup);
+                MessageBox.Show(this, "No se pudo guardar la nota: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        };
+        input.Controls.Add(editor);
+        input.Controls.Add(save);
         layout.Controls.Add(input, 0, 1);
+
         var grid = CreateGrid();
         grid.DataSource = new BindingList<JournalEntry>(_journal.OrderByDescending(x => x.Fecha).ToList());
         layout.Controls.Add(grid, 0, 2);
