@@ -1,27 +1,31 @@
 # Matriz funcional universal — v0.2 alpha (11-11-2026)
 
-**Base de evidencia:** inspección estática de cuatro ejecutables .NET originales aportados por un técnico O&M. Funciones listadas son **referencias presentes en textos o metadatos del software**: no implican hardware compatible, validación de protocolo ni comportamiento comprobado.
+**Base de evidencia:** inspección estática de cinco ejecutables de tres fabricantes aportados por el usuario. Los nombres de componentes y cadenas son **referencias presentes en los binarios**, no pruebas de funcionamiento de equipos físicos ni equivalencia de protocolos.
 
-| Concepto | Trina NCU 2.71 | Trina TCU 2.73 Multi | Powerway Communication Box 2.161 | Powerway Tracker Test 5.2.2 | Artech/Arctech |
+| Concepto | Trina NCU Monitor 2.71 | Trina TCU Multi 2.73 | Powerway Communication Box 2.161 | Powerway Tracker Test 5.2.2 | Arctech Tracker AI Controller (archivo 20230101-1) |
 |---|---|---|---|---|---|
-| Equivalencia operativa | NCU | TCU | NCU/caja central | TCU/seguidor | Por confirmar |
-| Plataforma | .NET WinForms | .NET WinForms | .NET WinForms CLR 2 | .NET WinForms CLR 4 | Pendiente |
-| COM / baudrate | Sí, referencias | Sí, referencias | Sí, referencias | Sí, referencias | Pendiente |
-| Radio | LoRa mencionado | LoRa mencionado | ZigBee mencionado | ZigBee mencionado | Pendiente |
-| Viento / protección | Referencias | Referencias | Referencias | Referencias | Pendiente |
-| Ángulo / posición | Referencias | Referencias | Datos astronómicos | Referencias tracker | Pendiente |
-| Motor / corriente | No concluyente | Referencias | No concluyente | Referencias | Pendiente |
-| Nieve / lluvia | Referencias | Referencias | Nieve y viento | Nieve / lluvia | Pendiente |
-| Alarmas | Referencias | Referencias | Comunicación y protección | Alarmas detalladas | Pendiente |
-| Parámetros editables en software original | Sí, referencias | Sí, referencias | Sí, referencias | Sí, referencias | Pendiente |
-| Integración real en ORBI | NO | NO | NO | NO | NO |
+| Rol del software | NCU | TCU | Caja central / NCU equivalente | Tracker / TCU equivalente | **Tracker + sección ComBox en un mismo ejecutable** |
+| Tecnología UI | .NET WinForms | .NET WinForms | .NET WinForms | .NET WinForms | **.NET 4 + WPF** |
+| COM / RS485 | Referencias | Referencias | Referencias | Referencias | Referencias explícitas |
+| Radio / inalámbrica | LoRa en cadenas | LoRa en cadenas | ZigBee en cadenas | ZigBee en cadenas | LoRa, 433/915 y 2.4 GHz en cadenas |
+| Viento / protección | Referencias | Referencias | Referencias | Referencias | `WindButton`, `WindProtection` |
+| Ángulos y posición | Referencias | Referencias | Datos astronómicos | Ángulo de tracker | `AngleTextBlock`, `AIAngleButton` |
+| Corriente de motor | No concluyente | Referencias | No concluyente | Referencias | `MotorCurTextBlock`, `MaxMotorCurTextBox` |
+| Nieve / lluvia | Referencias | Referencias | Referencias | Referencias | `SnowButton`, `RainButton` |
+| Alarmas | Referencias | Referencias | Referencias | Referencias | Indicadores de límite, corriente, batería, falla de ángulo |
+| Escrituras (solo código original) | Referencias | Referencias | Referencias | Referencias | `WriteAllButton`, `WriteParaButton` |
+| Funcionalidad real de protocolo en ORBI | No implementada | No implementada | No implementada | No implementada | No implementada |
+| Paridad real de funciones NCU y TCU | Por validar | Por validar | Por validar | Por validar | **No acreditada; requiere prueba funcional** |
 
-**Lo que sí comparten:** propósito de supervisión/configuración, campos técnicos y una interfaz Windows tradicional. **Lo que no se ha demostrado:** frames binarios, significados de registros, CRC, secuencia de autenticación, equivalencia de modelos, seguridad de escrituras, o que exista un OEM común.
+**Interpretación:** Arctech presenta una evolución de interfaz evidente frente a los EXE WinForms más sencillos y contiene componentes de ambos ámbitos en el mismo binario. No se ha verificado si reemplaza completamente el programa CommBox antiguo ni si un único enlace accede a ambos niveles de hardware.
 
-## Ejecutables analizados (no se incluyen en el repositorio)
+## Huellas de archivos analizados
 - Trina NCU Monitor 2.71 client: SHA-256 `d6811a599d95a9f68fb979f302bf4ddc5e81ad9c71d6796020280ac4b4b298ea`.
-- Trina TCU V2.73 Multi (80 canales): SHA-256 `31c1b330a0686795e56fdc803fa69cd05072aea44bea7ce6f2a34ad276ea35a7`.
+- Trina TCU Multi (80 canales) 2.73: SHA-256 `31c1b330a0686795e56fdc803fa69cd05072aea44bea7ce6f2a34ad276ea35a7`.
 - Powerway Communication Box V2.161: SHA-256 `56a796de8c0a7daf62702c204f1a5d93445395742998bb55e8f8d2f5a1a64458`.
 - Powerway Tracker Test for Customer V5.2.2: SHA-256 `9f40ff0ce187cb811c9ed7c92a73c0e966db00b0a1f381ec78bc791d9655de48`.
+- Arctech Tracker AI Controller (archivo 20230101-1): SHA-256 `87c8c5518920c08ff056d15a7bf71bc6204f7b02cce11dcb23133e4e55f6d34c`.
 
-Más detalle: [Análisis Powerway](ANALISIS_POWERWAY_2026-11-11.md). Continuación: [Insumos necesarios](NECESITO_DE_TI.md).
+Ver [Análisis Trina (estado inicial)](ARQUITECTURA.md), [Análisis Powerway](ANALISIS_POWERWAY_2026-11-11.md), [Análisis Arctech](ANALISIS_ARCTECH_2026-11-11.md) y [Pendientes para campo](NECESITO_DE_TI.md).
+
+**No se incluyen ejecutables de terceros en este repositorio público.**
