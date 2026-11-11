@@ -8,13 +8,17 @@ Proyecto comunitario en fase temprana para técnicos e ingenieros de operación 
 ## Fabricantes contemplados
 - Trina Solar: ejecutables NCU Monitor 2.71 y TCU V2.73 Multi disponibles para análisis estático privado.
 - Powerway: analizados Communication Box V2.161 (NCU equivalente) y Tracker Test for Customer V5.2.2 (TCU equivalente); protocolos y modelos pendientes de validar.
-- Artech / Arctech: marca y modelo exactos por confirmar; ejecutables pendientes.
+- Arctech Solar (alias de terreno «Artech»): analizado Tracker AI Controller (archivo 20230101-1, versión interna 1.0.0.0) con secciones Tracker y ComBox; **cobertura real del CommBox anterior pendiente de verificar**.
 
 **La semejanza de las pantallas no demuestra compatibilidad de protocolos.** Cada modelo/revisión/firmware deberá validarse individualmente.
 
 ## Análisis confirmado de Powerway (11-11-2026)
 
 Se incorporó el inventario de `Communication Box V2.161` (NCU equivalente) y `Tracker Test for Customer V5.2.2` (TCU equivalente), con una [comparación estática por función](docs/ANALISIS_POWERWAY_2026-11-11.md) y una [matriz multifabricante](docs/MATRIZ_FUNCIONAL.md). Ambos son Windows .NET; contienen referencias a comunicaciones seriales, ZigBee, variables de seguidores y protección. **Esto no acredita compatibilidad binaria entre Powerway y Trina.**
+
+## Análisis confirmado de Arctech (11-11-2026)
+
+El archivo `Tracker_AI_Controller_20230101-1.exe` contiene componentes `ComBoxTabItem`, `ComBoxButton` y controles de tracker bajo una aplicación .NET WPF. Los [hallazgos estáticos](docs/ANALISIS_ARCTECH_2026-11-11.md) son consistentes con una interfaz de ambos ámbitos dentro de un EXE, **sin demostrar que la nueva aplicación reemplaza íntegramente los dos programas antiguos**. Un anexo técnico antiguo de Arctech documenta dos herramientas separadas. Se añadieron referencias a la misma aplicación en el catálogo para ambas vistas NCU y TCU, sin implementar conexión real.
 
 ## Cómo ejecutar en Windows
 
