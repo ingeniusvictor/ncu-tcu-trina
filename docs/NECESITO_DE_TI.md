@@ -1,28 +1,30 @@
-# Insumos necesarios para avanzar hacia comunicación real
+# Insumos para avanzar hacia comunicación real
 
-**Recibido y analizado de manera estática (11-11-2026):**
-- [x] Trina NCU Monitor 2.71 (NCU).
-- [x] Trina TCU 2.73 Multi (80 canales) (TCU).
-- [x] Powerway Communication Box V2.161 (equivalente funcional NCU, por indicación del técnico).
-- [x] Powerway Tracker Test for Customer V5.2.2 (equivalente funcional TCU, por indicación del técnico).
+## Archivos recibidos e inspeccionados estáticamente (2026-11-11)
+- [x] Trina **NCU Monitor 2.71**.
+- [x] Trina **TCU Multi 2.73 (80 canales)**.
+- [x] Powerway **Communication Box V2.161** (equivalente NCU según operador).
+- [x] Powerway **Tracker Test for Customer V5.2.2** (equivalente TCU según operador).
+- [x] Arctech **Tracker AI Controller, archivo 20230101-1**: un EXE WPF que contiene módulos `Tracker` y `ComBoxTabItem`.
 
-Ver [análisis Powerway](ANALISIS_POWERWAY_2026-11-11.md) y [matriz funcional](MATRIZ_FUNCIONAL.md).
+## Lo que quedó por confirmar de Arctech
+- [ ] ¿El mismo programa permite ejecutar **todas** las funciones de la antigua herramienta CommBox, o solo muestra una pestaña relacionada? Captura o manual de usuario sin datos sensibles.
+- [ ] Modelos y versiones firmware de AI Controller/Control Box y CommBox donde se utiliza este programa.
+- [ ] Si conservas los EXE *separados* antiguos, compartirlos es **opcional** para completar la comparación; **ya no es necesario subir de nuevo el programa combinado**.
+- [ ] Aclarar si la instalación de la herramienta requiere archivos auxiliares, controladores USB, bases de datos u otros componentes no presentes en el EXE.
+- [ ] Confirmar qué conexión física utiliza para cada rol (RS485, LoRa, USB, Ethernet, etc.).
 
-## Lo prioritario ahora
-1. [ ] Adjuntar el ejecutable **Artech / Arctech** para NCU/comunicaciones, si existe, y aclarar el nombre comercial exacto del fabricante.
-2. [ ] Adjuntar el ejecutable **Artech / Arctech** para TCU/seguidores, si existe.
-3. [ ] Modelo de placa y versión de firmware de **un NCU/Communication Box y un TCU** de Powerway y de Trina, sin datos de planta.
-4. [ ] Manual técnico, mapa de registros, especificación de comunicación o SDK correspondiente a **consultas de identificación y estado de solo lectura**.
-5. [ ] Medio de conexión que se utiliza en terreno: USB-RS485, RS232, ZigBee, LoRa, Ethernet, conversor, etc.
-6. [ ] Capturas no sensibles de las pantallas de monitoreo, alarmas y conexión de los originales para comparar nomenclatura.
+## Insumos comunes a los tres fabricantes
+1. [ ] Modelo exacto y firmware de al menos un NCU/caja central y un TCU/controlador de seguidor **de banco de pruebas**.
+2. [ ] Manual, mapa de registros o especificación de protocolo de **consultas de identidad y estado de solo lectura** aplicable a ese firmware.
+3. [ ] Medio de conexión y conversor que usan los técnicos en terreno (sin IP públicas, claves, cuentas ni datos de plantas).
+4. [ ] Confirmación de pruebas supervisadas, autorizadas y sin alteraciones de equipos productivos.
+5. [ ] Pantallas anonimizadas de los programas originales, para contrastar traducciones, nombres, estados y unidades.
 
-## Antes de cualquier integración con equipos reales
-- [ ] Acordar ensayos supervisados de solo lectura en banco o ambiente no productivo autorizado.
-- [ ] Comparar identificador de equipo, estados, alarmas y unidades con el software original.
-- [ ] Probar desconexión, timeout, errores CRC y frescura de telemetría.
-- [ ] Evaluar por separado escrituras, calibraciones, movimiento de trackers y cambios de seguridad: NO incluidos en las primeras versiones.
+## Qué no se debe compartir
+Credenciales, archivos de configuración confidenciales de plantas, IP públicas, datos personales, llaves, firmware, ni capturas de tráfico de producción sin autorización.
 
-**No compartir** contraseñas, credenciales de planta, archivos de configuración confidenciales, IP públicas, capturas con números de serie o datos personales, firmware ni tramas de producción sin autorización.
+## Desarrollo que puede seguir sin más archivos
+UX premium, traducciones en español, arquitectura de adaptadores, modo offline, bitácora, exportación, tests y empaquetado Windows. **La comunicación real sigue pendiente de protocolos y pruebas de solo lectura.**
 
-## Lo que puedo continuar sin más materiales
-Diseño premium, internacionalización, reorganización NCU/TCU, validaciones offline, manejo de bitácora, empaquetado Windows, glosario técnico y pruebas automatizadas del núcleo desconectado.
+Detalles: [Matriz funcional](MATRIZ_FUNCIONAL.md), [Powerway](ANALISIS_POWERWAY_2026-11-11.md), [Arctech](ANALISIS_ARCTECH_2026-11-11.md).
