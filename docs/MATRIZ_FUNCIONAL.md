@@ -4,7 +4,7 @@
 
 | Concepto | Trina NCU Monitor 2.71 | Trina TCU Multi 2.73 | Powerway Communication Box 2.161 | Powerway Tracker Test 5.2.2 | Arctech Tracker AI Controller (archivo 20230101-1) |
 |---|---|---|---|---|---|
-| Rol del software | NCU | TCU | Caja central / NCU equivalente | Tracker / TCU equivalente | **Tracker + sección ComBox en un mismo ejecutable** |
+| Rol del software | NCU | TCU | Caja central / NCU equivalente | Tracker / TCU equivalente | **Tracker confirmado visualmente; referencias internas a ComBox sin pantalla verificada** |
 | Tecnología UI | .NET WinForms | .NET WinForms | .NET WinForms | .NET WinForms | **.NET 4 + WPF** |
 | COM / RS485 | Referencias | Referencias | Referencias | Referencias | Referencias explícitas |
 | Radio / inalámbrica | LoRa en cadenas | LoRa en cadenas | ZigBee en cadenas | ZigBee en cadenas | LoRa, 433/915 y 2.4 GHz en cadenas |
@@ -15,9 +15,9 @@
 | Alarmas | Referencias | Referencias | Referencias | Referencias | Indicadores de límite, corriente, batería, falla de ángulo |
 | Escrituras (solo código original) | Referencias | Referencias | Referencias | Referencias | `WriteAllButton`, `WriteParaButton` |
 | Funcionalidad real de protocolo en ORBI | No implementada | No implementada | No implementada | No implementada | No implementada |
-| Paridad real de funciones NCU y TCU | Por validar | Por validar | Por validar | Por validar | **No acreditada; requiere prueba funcional** |
+| Paridad real de funciones NCU y TCU | Por validar | Por validar | Por validar | Por validar | **No acreditada: captura muestra Tracker, no CommBox autónomo** |
 
-**Interpretación:** Arctech presenta una evolución de interfaz evidente frente a los EXE WinForms más sencillos y contiene componentes de ambos ámbitos en el mismo binario. No se ha verificado si reemplaza completamente el programa CommBox antiguo ni si un único enlace accede a ambos niveles de hardware.
+**Interpretación:** Arctech presenta una interfaz WPF diferente. El EXE contiene referencias internas a componentes CommBox, pero la única pantalla recibida muestra Tracker, LoRa y Scan y no una sección CommBox explícita. **No está demostrado que sustituya el software CommBox antiguo.** Más detalle: [referencia visual](REFERENCIA_UI_ARCTECH_TRACKER_2026-11-11.md).
 
 ## Huellas de archivos analizados
 - Trina NCU Monitor 2.71 client: SHA-256 `d6811a599d95a9f68fb979f302bf4ddc5e81ad9c71d6796020280ac4b4b298ea`.
