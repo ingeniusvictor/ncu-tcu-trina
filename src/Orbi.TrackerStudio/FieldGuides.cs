@@ -49,7 +49,25 @@ public static class FieldGuides
         new SpanishTerm("CRC", "Código de verificación de trama", "Requiere protocolo y orden de bytes exactos"),
         new SpanishTerm("Firmware", "Firmware del controlador", "La compatibilidad depende de la revisión"),
         new SpanishTerm("Read parameters", "Leer parámetros", "Solo lectura, futura fase validada"),
-        new SpanishTerm("Write parameters", "Escribir parámetros", "No implementado; requiere autorización")
+        new SpanishTerm("Write parameters", "Escribir parámetros", "No implementado; requiere autorización"),
+        // Observed labels in Arctech AI Track Controller screenshot (2026-11-11).
+        // Translations are explanatory and do not assert verified alarm mapping.
+        new SpanishTerm("AngleNoCom", "Sin comunicación con sensor de ángulo", "Código Arctech visible; confirmar descripción oficial por firmware"),
+        new SpanishTerm("AngleNoChange", "Ángulo sin cambio detectado", "No diagnostica causa del bloqueo"),
+        new SpanishTerm("SoftLimit-E / SoftLimit-W", "Límite lógico Este / Oeste", "No cambiar límites sin autorización y procedimiento"),
+        new SpanishTerm("MotorOverCur", "Sobrecorriente del motor", "Verificar estado y mediciones, no inferir causa"),
+        new SpanishTerm("MotorReversal", "Sentido de movimiento invertido", "Requiere diagnóstico del controlador"),
+        new SpanishTerm("EmergencyStop", "Parada de emergencia", "Respetar LOTO y procedimiento seguro"),
+        new SpanishTerm("TimeLost / RTCError", "Pérdida de hora / error de reloj", "Confirmar sincronización y reloj en equipo"),
+        new SpanishTerm("BatSOCLow", "Estado de carga de batería bajo", "SOC sujeto a medición/calibración"),
+        new SpanishTerm("BatError / BatNoCom", "Falla de batería / sin comunicación con batería", "Dos códigos distintos que no deben fusionarse"),
+        new SpanishTerm("NTCError", "Error de sensor de temperatura NTC", "Verificar sensor y conexión"),
+        new SpanishTerm("ParaSaveError", "Error al guardar parámetros", "No repetir comandos de escritura automáticamente"),
+        new SpanishTerm("ExternFlashError", "Error de memoria flash externa", "No iniciar actualización de firmware automáticamente"),
+        new SpanishTerm("DriverError", "Error de controlador del motor", "Código visible; significado exacto por manual"),
+        new SpanishTerm("NightDock", "Ángulo de reposo nocturno", "No modificar posición del seguidor sin permiso"),
+        new SpanishTerm("ProWindSpeed / ProDelay", "Umbral y retardo de protección por viento", "Rangos y unidades deben validarse por firmware"),
+        new SpanishTerm("TargetAngle / ActualAngle", "Ángulo objetivo / ángulo actual", "Verificar sentido de movimiento y referencia del ángulo")
     };
 
     public static IReadOnlyList<SoftwareCompatibility> Matrix { get; } =
