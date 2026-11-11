@@ -59,3 +59,9 @@ El 2026-11-11 se recibió una **captura de la ventana AI Track Controller** con 
 La captura también presenta simultáneamente `Click To Open` y una luz verde `Normal`. Por eso no deben interpretarse ni la luz ni los valores del formulario como prueba de conexión o de lecturas válidas.
 
 El detalle de campos, alarmas originales, traducciones y distribución está registrado en [Referencia UI Arctech Tracker](REFERENCIA_UI_ARCTECH_TRACKER_2026-11-11.md). La captura **no se subió al repositorio público**.
+
+## Capturas posteriores LoRa y Scan (11-11-2026)
+
+Dos capturas adicionales confirman visualmente que `LoRa` ofrece parámetros de radio de módulo EBYTE (Channel, NetID, Power, Air Rate, Key, Read/Write y Remote), y que `Scan` incluye un rango de búsqueda y tres paneles de resultados (comunicación, firmware y tensión de módulo). Los paneles mostrados están vacíos: **no se observa una lectura real ni un escaneo exitoso**.
+
+**La presencia de funciones LoRa/Scan sigue sin demostrar que el programa sustituya totalmente CommBox/NCU.** Por decisión del usuario, Arctech se mantiene como fabricante documentado, con implementación diferida para priorizar Trina y Powerway. Véase [detalle LoRa/Scan](REFERENCIA_UI_ARCTECH_LORA_SCAN_2026-11-11.md).
