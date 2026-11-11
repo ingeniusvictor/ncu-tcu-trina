@@ -7,10 +7,14 @@ Proyecto comunitario en fase temprana para técnicos e ingenieros de operación 
 
 ## Fabricantes contemplados
 - Trina Solar: ejecutables NCU Monitor 2.71 y TCU V2.73 Multi disponibles para análisis estático privado.
-- Powerway: protocolo y ejecutables pendientes de recepción.
+- Powerway: analizados Communication Box V2.161 (NCU equivalente) y Tracker Test for Customer V5.2.2 (TCU equivalente); protocolos y modelos pendientes de validar.
 - Artech / Arctech: marca y modelo exactos por confirmar; ejecutables pendientes.
 
 **La semejanza de las pantallas no demuestra compatibilidad de protocolos.** Cada modelo/revisión/firmware deberá validarse individualmente.
+
+## Análisis confirmado de Powerway (11-11-2026)
+
+Se incorporó el inventario de `Communication Box V2.161` (NCU equivalente) y `Tracker Test for Customer V5.2.2` (TCU equivalente), con una [comparación estática por función](docs/ANALISIS_POWERWAY_2026-11-11.md) y una [matriz multifabricante](docs/MATRIZ_FUNCIONAL.md). Ambos son Windows .NET; contienen referencias a comunicaciones seriales, ZigBee, variables de seguidores y protección. **Esto no acredita compatibilidad binaria entre Powerway y Trina.**
 
 ## Cómo ejecutar en Windows
 
