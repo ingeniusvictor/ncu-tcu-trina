@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Orbi.TrackerStudio</AssemblyName>
+    <RootNamespace>Orbi.TrackerStudio</RootNamespace>
+    <Version>0.2.0-alpha</Version>
+    <ApplicationTitle>ORBI Tracker Studio</ApplicationTitle>
+    <Company>ORBI Ecosystem</Company>
+  </PropertyGroup>
+</Project>

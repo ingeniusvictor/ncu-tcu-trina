@@ -1,0 +1,31 @@
+# Build outputs
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+release/
+publish/
+artifacts/
+
+# Local sensitive material and third-party software
+vendor/
+fabricante/
+originales/
+*.exe
+*.msi
+*.dll
+*.pfx
+*.key
+*.pem
+*.env
+.env*
+*.pcap
+*.pcapng
+*.bin
+*.firmware
+plant-config/
+field-data/
+local-notes/
+!README.md
