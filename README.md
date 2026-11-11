@@ -34,7 +34,10 @@ Esta aplicación no requiere internet para sus funciones locales. El artefacto `
 
 ## Funciones en esta etapa
 - Interfaz única en español, con selector Trina / Powerway / Arctech.
-- Panel de resumen y módulos separados NCU/TCU para los tres fabricantes, **sin comunicación real**.\n- Filtro de seguidores por identificador y estado ficticio; alarmas **simuladas** siempre identificadas.\n- Diagnóstico guiado **sin ejecutar pruebas**, glosario técnico español y matriz de seis roles catalogados.\n- Bitácora local con copia de seguridad `notes.json.bak` y exportación CSV.
+- Panel de resumen y módulos separados NCU/TCU para los tres fabricantes, **sin comunicación real**.
+- Filtro de seguidores por identificador y estado ficticio; alarmas **simuladas** siempre identificadas.
+- Diagnóstico guiado **sin ejecutar pruebas**, glosario técnico español y matriz de seis roles catalogados.
+- Bitácora local con copia de seguridad `notes.json.bak` y exportación CSV.
 - Enumeración de nombres de puertos COM en Windows (no abre puertos).
 - Exportación CSV de datos **DEMO**, etiquetados como tales, y exportación independiente de notas locales. Ambos sanitizan textos con apariencia de fórmula.
 - Notas de terreno persistidas localmente en `%LOCALAPPDATA%\ORBI\TrackerStudio\notes.json`.
