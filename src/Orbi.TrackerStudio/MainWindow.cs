@@ -126,9 +126,10 @@ public sealed partial class MainWindow : Form
         var export = MakeButton("Exportar DEMO CSV", AccentColor, 595, 30, 172, 36, darkText: true);
         export.Click += (_, _) => ExportCsv();
         p.Controls.Add(export);
-        _portInfo.SetBounds(782, 32, 340, 40);
+        // Put port feedback on a second line so it stays visible on 1366x768 field laptops.
+        _portInfo.SetBounds(14, 70, 910, 18);
         _portInfo.ForeColor = MutedColor;
-        _portInfo.Font = new Font("Segoe UI", 9f);
+        _portInfo.Font = new Font("Segoe UI", 8f);
         p.Controls.Add(_portInfo);
         return p;
     }
@@ -358,7 +359,7 @@ public sealed partial class MainWindow : Form
         _portPicker.Items.Add("(sin seleccionar)");
         foreach (var port in ports) _portPicker.Items.Add(port);
         _portPicker.SelectedIndex = 0;
-        _portInfo.Text = ports.Count == 0 ? "No se detectaron nombres COM." : ports.Count + " puerto(s) encontrado(s).\nNo se estableció conexión.";
+        _portInfo.Text = (ports.Count == 0 ? "No se detectaron nombres COM." : ports.Count + " puerto(s) encontrado(s).") + "  ·  Inventario pasivo, sin conexión.";
     }
 
     private void ExportCsv()

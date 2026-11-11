@@ -3,7 +3,7 @@
 
 Proyecto comunitario en fase temprana para técnicos e ingenieros de operación y mantenimiento (O&M) fotovoltaico. La meta es unificar, en una sola interfaz comprensible, la supervisión de controladores NCU/TCU y sistemas equivalentes de distintos fabricantes.
 
-**Estado actual: v0.2.0-alpha — demostrador de escritorio.** La interfaz, la selección de fabricante, el inventario local de puertos COM, la bitácora y el exportador CSV son funcionales. **Los valores de trackers y alarmas son simulados. No existe todavía comunicación con hardware ni capacidad de escribir parámetros o mover motores.**
+**Estado actual: v0.3.0-alpha — demostrador de escritorio.** La interfaz, la selección de fabricante, el inventario local de puertos COM, la bitácora y el exportador CSV son funcionales. **Los valores de trackers y alarmas son simulados. No existe todavía comunicación con hardware ni capacidad de escribir parámetros o mover motores.**
 
 ## Fabricantes contemplados
 - Trina Solar: ejecutables NCU Monitor 2.71 y TCU V2.73 Multi disponibles para análisis estático privado.
@@ -33,12 +33,27 @@ dotnet run --project src/Orbi.TrackerStudio/Orbi.TrackerStudio.csproj
 Esta aplicación no requiere internet para sus funciones locales. El artefacto `win-x64` publicado por CI será autocontenido si la compilación termina correctamente.
 
 ## Funciones en esta etapa
-- Interfaz única en español, con selector Trina / Powerway / Artech.
-- Panel de resumen, alarmas **simuladas**, bitácora local y vista de compatibilidad.
+- Interfaz única en español, con selector Trina / Powerway / Arctech.
+- Panel de resumen y módulos separados NCU/TCU para los tres fabricantes, **sin comunicación real**.
+- Filtro de seguidores por identificador y estado ficticio; alarmas **simuladas** siempre identificadas.
+- Diagnóstico guiado **sin ejecutar pruebas**, glosario técnico español y matriz de seis roles catalogados.
+- Bitácora local con copia de seguridad `notes.json.bak` y exportación CSV.
 - Enumeración de nombres de puertos COM en Windows (no abre puertos).
-- Exportación CSV de datos **DEMO**, etiquetados como tales.
+- Exportación CSV de datos **DEMO**, etiquetados como tales, y exportación independiente de notas locales. Ambos sanitizan textos con apariencia de fórmula.
 - Notas de terreno persistidas localmente en `%LOCALAPPDATA%\ORBI\TrackerStudio\notes.json`.
 - No guarda credenciales, IP de planta ni identificadores reales.
+
+## Calidad y pruebas offline
+
+El flujo [Windows build & offline smoke](.github/workflows/windows-build.yml) compila en Windows e incluye pruebas de consistencia: catálogo de 3 fabricantes, 6 roles NCU/TCU, ausencia de telemetría validada, identificación de todos los datos DEMO y seguridad de exportación CSV.
+
+Pruebas reproducibles en una máquina Windows con .NET 8 SDK:
+
+```powershell
+dotnet run --project tests/Orbi.TrackerStudio.Smoke/Orbi.TrackerStudio.Smoke.csproj --configuration Release
+```
+
+La lista de [pruebas manuales v0.3](docs/QA_V03.md) incluye revisión de interfaz en portátil, persistencia local, exportaciones y la prohibición de pruebas con hardware productivo. La versión no se considerará compilada/certificada hasta ver resultados de CI y una comprobación gráfica real en Windows.
 
 ## Seguridad
 **Sin conexión real y sin escrituras.** No contiene comandos de mover trackers, cambiar límites o deshabilitar protecciones. La detección automática se diseñará tras disponer de tramas oficiales o capturas autorizadas de solo lectura. Nunca usar datos DEMO para tomar decisiones operativas.
