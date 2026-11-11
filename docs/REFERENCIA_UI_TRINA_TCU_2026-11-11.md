@@ -1,6 +1,14 @@
 # Referencia visual — Trina Solar TCU V2.73 Multitype/Update2
 
-**Fuente:** dos capturas suministradas por el operador, 11 de noviembre de 2026. Una muestra **Para Display**, otra **Simulations**. Este documento es un inventario visual para diseñar una interfaz en español, no una prueba de protocolo ni un diagnóstico del controlador.
+**Fuente:** dos capturas suministradas por el operador, 11 de noviembre de 2026. Una muestra **Para Display**, otra **Simulations**. Este documento es un inventario visual para diseñar una interfaz en español. Posteriormente, el operador confirmó que las capturas fueron tomadas durante una intervención real con movimiento del tracker. No constituye validación de protocolo ni de cada lectura o confirmación de comando.
+
+## Aclaración posterior del operador (contexto de terreno)
+
+El operador confirmó expresamente, después de compartir las capturas, que **estaba físicamente junto al tracker realizando movimientos reales** con el programa de Trina. Por tanto, **no son únicamente pantallas de laboratorio o una demostración visual**: corresponden a una sesión real de trabajo en campo.
+
+Esta declaración confirma el contexto operativo, pero **no demuestra por sí sola la semántica de cada indicador**. En particular, las etiquetas `Device connecting: Comm connecting` y `Command Status: OK` no aportan por sí mismas confirmación inequívoca de entrega, ejecución, posición alcanzada ni validez/frescura de todas las mediciones. No se registraron tramas, marca temporal de respuesta ni comparación entre posición física y pantalla.
+
+**Consecuencia para ORBI:** diseñar indicadores separados de puerto abierto, controlador identificado, lectura válida con timestamp, comando enviado, acuse de recibo y movimiento verificado, sin asumir equivalencias hasta documentar el protocolo. Las pruebas no deben requerir movimientos adicionales ni interferir con la operación activa.
 
 ## Identidad y comunicación visibles
 - Título de ventana: `TCU V2.73-Multitype_Update2`.
