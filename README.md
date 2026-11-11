@@ -53,7 +53,7 @@ Pruebas reproducibles en una máquina Windows con .NET 8 SDK:
 dotnet run --project tests/Orbi.TrackerStudio.Smoke/Orbi.TrackerStudio.Smoke.csproj --configuration Release
 ```
 
-La lista de [pruebas manuales v0.3](docs/QA_V03.md) incluye revisión de interfaz en portátil, persistencia local, exportaciones y la prohibición de pruebas con hardware productivo. La versión no se considerará compilada/certificada hasta ver resultados de CI y una comprobación gráfica real en Windows.
+La lista de [pruebas manuales v0.3](docs/QA_V03.md) incluye revisión de interfaz en portátil, persistencia local, exportaciones y la prohibición de pruebas con hardware productivo. La [compilación y las pruebas offline del PR #4](docs/CI_V03_2026-11-11.md) finalizaron correctamente en Windows; **la comprobación gráfica real y la validación con hardware siguen pendientes**.
 
 ## Seguridad
 **Sin conexión real y sin escrituras.** No contiene comandos de mover trackers, cambiar límites o deshabilitar protecciones. La detección automática se diseñará tras disponer de tramas oficiales o capturas autorizadas de solo lectura. Nunca usar datos DEMO para tomar decisiones operativas.
