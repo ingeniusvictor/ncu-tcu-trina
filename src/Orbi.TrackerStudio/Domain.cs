@@ -29,6 +29,37 @@ public static class AdapterCatalog
     };
 }
 
+// Software references are static inventory only: no binaries are embedded or launched.
+public sealed record VendorSoftwareReference(
+    string ManufacturerId,
+    string Family,
+    string OriginalProduct,
+    string Version,
+    string ObservedFunctions,
+    string Evidence);
+
+public static class SoftwareCatalog
+{
+    public static IReadOnlyList<VendorSoftwareReference> All { get; } = new[]
+    {
+        new VendorSoftwareReference("trina", "NCU", "NCU Monitor", "2.71",
+            "Monitoreo de control central, viento, parámetros astronómicos y comunicación",
+            "Inspección estática de ejecutable facilitado"),
+        new VendorSoftwareReference("trina", "TCU", "TCU Multi (80 canales)", "2.73",
+            "Seguimiento, ángulos, alarmas, motor, límites y configuración",
+            "Inspección estática de ejecutable facilitado"),
+        new VendorSoftwareReference("powerway", "NCU", "Communication Box", "2.161",
+            "Comunicación central, ZigBee, viento, datos meteorológicos y control grupal",
+            "Inspección estática de ejecutable facilitado"),
+        new VendorSoftwareReference("powerway", "TCU", "Tracker Test for Customer", "5.2.2",
+            "Ángulos, corriente de motores, protección, nieve, lluvia, límites y alarmas",
+            "Inspección estática de ejecutable facilitado")
+    };
+
+    public static VendorSoftwareReference? Find(string manufacturerId, string family) =>
+        All.FirstOrDefault(x => x.ManufacturerId == manufacturerId && x.Family == family);
+}
+
 public sealed class TrackerReading
 {
     public string Tracker { get; set; } = "";
