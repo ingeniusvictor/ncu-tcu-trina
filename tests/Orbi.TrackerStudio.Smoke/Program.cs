@@ -47,4 +47,17 @@ finally
 {
     if (File.Exists(destination)) File.Delete(destination);
 }
+var notesDestination = Path.Combine(Path.GetTempPath(), "orbi_notes_test_" + Guid.NewGuid().ToString("N") + ".csv");
+try
+{
+    JournalCsvExporter.Write(notesDestination,
+        new[] { new JournalEntry { Fecha = "2026-11-11", Fabricante = "Trina", Nota = "=SUM(1,2)" } });
+    var notesCsv = File.ReadAllText(notesDestination, Encoding.UTF8);
+    Check(notesCsv.Contains("Fecha;Fabricante;Nota"), "encabezados de bitácora exportada");
+    Check(notesCsv.Contains("\"'=SUM(1,2)\""), "exportación de notas neutraliza fórmulas CSV");
+}
+finally
+{
+    if (File.Exists(notesDestination)) File.Delete(notesDestination);
+}
 Console.WriteLine("Todos los ensayos de lógica offline finalizaron correctamente.");
