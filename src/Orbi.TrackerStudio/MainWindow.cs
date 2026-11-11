@@ -79,7 +79,7 @@ public sealed class MainWindow : Form
         bar.Controls.Add(MakeLabel("TRACKER STUDIO", 11, TextColor, 28, 76, true, 190, 27));
         bar.Controls.Add(MakeLabel("UNIVERSAL  /  O&M", 9, MutedColor, 28, 109, false, 180, 25));
         bar.Controls.Add(MakeLabel("ESTACIÓN DE TRABAJO", 8, MutedColor, 28, 167, true, 180, 24));
-        var pages = new[] { "Resumen", "Alarmas", "Bitácora", "Compatibilidad" };
+        var pages = new[] { "Resumen", "NCU · Central", "TCU · Seguidores", "Alarmas", "Bitácora", "Compatibilidad" };
         for (var i = 0; i < pages.Length; i++)
         {
             var page = pages[i];
@@ -172,6 +172,8 @@ public sealed class MainWindow : Form
         _activePage = page;
         _pageHost.Controls.Clear();
         if (page == "Resumen") ShowOverview();
+        else if (page == "NCU · Central") ShowDeviceFamily("NCU");
+        else if (page == "TCU · Seguidores") ShowDeviceFamily("TCU");
         else if (page == "Alarmas") ShowAlerts();
         else if (page == "Bitácora") ShowJournal();
         else ShowCompatibility();
@@ -184,6 +186,46 @@ public sealed class MainWindow : Form
         var grid = CreateGrid();
         grid.DataSource = new BindingList<TrackerReading>(_readings);
         panel.Controls.Add(grid, 0, 1);
+        _pageHost.Controls.Add(panel);
+    }
+
+    private void ShowDeviceFamily(string family)
+    {
+        var product = SoftwareCatalog.Find(_selected.Id, family);
+        var title = family == "NCU" ? "NCU / Caja central de comunicaciones" : "TCU / Controlador de seguimiento";
+        var caption = "Vista informativa. El programa de fábrica NO está conectado ni integrado por protocolo.";
+        var panel = PageFrame(title + " — " + _selected.DisplayName, caption);
+        if (family == "TCU")
+        {
+            // These fictional samples must never be confused with readings from real trackers.
+            var grid = CreateGrid();
+            grid.DataSource = new BindingList<TrackerReading>(_readings);
+            panel.Controls.Add(grid, 0, 1);
+        }
+        else
+        {
+            var software = product is null
+                ? "No se ha recibido el ejecutable original de este fabricante."
+                : "Referencia original: " + product.OriginalProduct + " v" + product.Version + ".\\n"
+                    + "Funciones detectadas por análisis estático: " + product.ObservedFunctions + ".";
+            var info = new RichTextBox
+            {
+                Dock = DockStyle.Fill, BorderStyle = BorderStyle.None,
+                ReadOnly = true, BackColor = PanelColor,
+                ForeColor = TextColor, Font = new Font("Segoe UI", 12f),
+                Text = "MÓDULO CENTRAL — " + _selected.DisplayName + "\\n\\n"
+                    + software + "\\n\\n"
+                    + "ETAPA ACTUAL: catálogo informativo, sin telemetría real.\\n"
+                    + "Conexión serial: NO ABIERTA.\\n"
+                    + "Identificación de hardware: SIN VALIDAR.\\n"
+                    + "Escritura de parámetros / órdenes grupales: NO IMPLEMENTADA.\\n\\n"
+                    + "Próxima validación: consultar identidad y estado mediante operaciones\\n"
+                    + "documentadas de solo lectura en banco supervisado.\\n\\n"
+                    + "ATENCIÓN: las pantallas similares entre marcas no garantizan\\n"
+                    + "interoperabilidad de protocolos, firmware ni límites de seguridad."
+            };
+            panel.Controls.Add(info, 0, 1);
+        }
         _pageHost.Controls.Add(panel);
     }
 
