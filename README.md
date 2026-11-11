@@ -5,6 +5,12 @@ Proyecto comunitario en fase temprana para técnicos e ingenieros de operación 
 
 **Estado actual: v0.3.0-alpha — demostrador de escritorio.** La interfaz, la selección de fabricante, el inventario local de puertos COM, la bitácora y el exportador CSV son funcionales. **Los valores de trackers y alarmas son simulados. No existe todavía comunicación con hardware ni capacidad de escribir parámetros o mover motores.**
 
+## Prioridad de implementación decidida en terreno
+
+**P1 Trina Solar**, **P2 Powerway**, **Arctech como referencia diferida**. La arquitectura sigue siendo universal, pero los primeros adaptadores reales y las pruebas autorizadas se dedicarán a las dos marcas que el usuario atiende actualmente. Ver [plan de trabajo](docs/PRIORIDADES_TRINA_POWERWAY.md).
+
+Las capturas adicionales de Arctech `LoRa` y `Scan` permiten documentar radio EBYTE y consulta de rangos de controlador, **sin demostrar paridad con el CommBox antiguo ni lecturas activas**: [registro visual](docs/REFERENCIA_UI_ARCTECH_LORA_SCAN_2026-11-11.md).
+
 ## Fabricantes contemplados
 - Trina Solar: ejecutables NCU Monitor 2.71 y TCU V2.73 Multi disponibles para análisis estático privado.
 - Powerway: analizados Communication Box V2.161 (NCU equivalente) y Tracker Test for Customer V5.2.2 (TCU equivalente); protocolos y modelos pendientes de validar.
