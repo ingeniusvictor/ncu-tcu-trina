@@ -25,7 +25,7 @@ public static class AdapterCatalog
     {
         new ManufacturerDefinition("trina", "Trina Solar", "NCU / TCU"),
         new ManufacturerDefinition("powerway", "Powerway", "Modelos pendientes"),
-        new ManufacturerDefinition("artech", "Artech / Arctech (por confirmar)", "Modelos pendientes")
+        new ManufacturerDefinition("artech", "Arctech Solar", "AI Controller / CommBox (revisión pendiente)")
     };
 }
 
@@ -53,7 +53,13 @@ public static class SoftwareCatalog
             "Inspección estática de ejecutable facilitado"),
         new VendorSoftwareReference("powerway", "TCU", "Tracker Test for Customer", "5.2.2",
             "Ángulos, corriente de motores, protección, nieve, lluvia, límites y alarmas",
-            "Inspección estática de ejecutable facilitado")
+            "Inspección estática de ejecutable facilitado"),
+        new VendorSoftwareReference("artech", "NCU", "Tracker AI Controller — módulo CommBox", "Archivo 20230101-1 / recurso 1.0.0.0",
+            "ComBoxTabItem, ComBoxButton, comunicación RS485/LoRa; cobertura funcional central pendiente de confirmar",
+            "Componentes internos observados estáticamente; sin pruebas funcionales"),
+        new VendorSoftwareReference("artech", "TCU", "Tracker AI Controller — módulo Tracker", "Archivo 20230101-1 / recurso 1.0.0.0",
+            "Monitorización y ajustes de AI Controller; referencias a ángulo, motor, modos y alarmas",
+            "Componentes internos observados estáticamente; sin pruebas funcionales")
     };
 
     public static VendorSoftwareReference? Find(string manufacturerId, string family) =>
