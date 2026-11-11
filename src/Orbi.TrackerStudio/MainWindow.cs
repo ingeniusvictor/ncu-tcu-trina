@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Orbi.TrackerStudio;
 
-public sealed class MainWindow : Form
+public sealed partial class MainWindow : Form
 {
     private static readonly Color BackgroundColor = ColorTranslator.FromHtml("#07111F");
     private static readonly Color SidebarColor = ColorTranslator.FromHtml("#0B1828");
@@ -30,7 +30,7 @@ public sealed class MainWindow : Form
 
     public MainWindow()
     {
-        Text = "ORBI Tracker Studio  •  v0.2 alpha  •  DEMOSTRACIÓN";
+        Text = "ORBI Tracker Studio  •  v0.3 alpha  •  DEMOSTRACIÓN";
         StartPosition = FormStartPosition.CenterScreen;
         MinimumSize = new Size(1060, 720);
         Size = new Size(1380, 840);
@@ -79,11 +79,11 @@ public sealed class MainWindow : Form
         bar.Controls.Add(MakeLabel("TRACKER STUDIO", 11, TextColor, 28, 76, true, 190, 27));
         bar.Controls.Add(MakeLabel("UNIVERSAL  /  O&M", 9, MutedColor, 28, 109, false, 180, 25));
         bar.Controls.Add(MakeLabel("ESTACIÓN DE TRABAJO", 8, MutedColor, 28, 167, true, 180, 24));
-        var pages = new[] { "Resumen", "NCU · Central", "TCU · Seguidores", "Alarmas", "Bitácora", "Compatibilidad" };
+        var pages = new[] { "Resumen", "NCU · Central", "TCU · Seguidores", "Alarmas", "Diagnóstico", "Glosario", "Bitácora", "Compatibilidad" };
         for (var i = 0; i < pages.Length; i++)
         {
             var page = pages[i];
-            var button = MakeButton("   " + page, RaisedColor, 24, 210 + i * 57, 186, 43);
+            var button = MakeButton("   " + page, RaisedColor, 24, 191 + i * 45, 186, 39);
             button.TextAlign = ContentAlignment.MiddleLeft;
             button.Click += (_, _) => SwitchPage(page);
             bar.Controls.Add(button);
@@ -170,13 +170,20 @@ public sealed class MainWindow : Form
     private void SwitchPage(string page)
     {
         _activePage = page;
-        _pageHost.Controls.Clear();
+        // Dispose page controls and event handlers when changing workspaces.
+        foreach (Control control in _pageHost.Controls.Cast<Control>().ToArray())
+        {
+            _pageHost.Controls.Remove(control);
+            control.Dispose();
+        }
         if (page == "Resumen") ShowOverview();
-        else if (page == "NCU · Central") ShowDeviceFamily("NCU");
-        else if (page == "TCU · Seguidores") ShowDeviceFamily("TCU");
+        else if (page == "NCU · Central") ShowNcuWorkspace();
+        else if (page == "TCU · Seguidores") ShowTcuWorkspace();
         else if (page == "Alarmas") ShowAlerts();
+        else if (page == "Diagnóstico") ShowDiagnosticsWorkspace();
+        else if (page == "Glosario") ShowGlossaryWorkspace();
         else if (page == "Bitácora") ShowJournal();
-        else ShowCompatibility();
+        else ShowCompatibilityWorkspace();
     }
 
     private void ShowOverview()
@@ -186,49 +193,6 @@ public sealed class MainWindow : Form
         var grid = CreateGrid();
         grid.DataSource = new BindingList<TrackerReading>(_readings);
         panel.Controls.Add(grid, 0, 1);
-        _pageHost.Controls.Add(panel);
-    }
-
-    private void ShowDeviceFamily(string family)
-    {
-        var product = SoftwareCatalog.Find(_selected.Id, family);
-        var title = family == "NCU" ? "NCU / Caja central de comunicaciones" : "TCU / Controlador de seguimiento";
-        var caption = product is null
-            ? "No hay software del fabricante catalogado para esta función. Sin telemetría real."
-            : "Referencia estática: " + product.OriginalProduct + " · " + product.Version
-                + "  |  NO conectado · NO validado · DEMO";
-        var panel = PageFrame(title + " — " + _selected.DisplayName, caption);
-        if (family == "TCU")
-        {
-            // These fictional samples must never be confused with readings from real trackers.
-            var grid = CreateGrid();
-            grid.DataSource = new BindingList<TrackerReading>(_readings);
-            panel.Controls.Add(grid, 0, 1);
-        }
-        else
-        {
-            var software = product is null
-                ? "No se ha recibido el ejecutable original de este fabricante."
-                : "Referencia original: " + product.OriginalProduct + " v" + product.Version + ".\n"
-                    + "Funciones detectadas por análisis estático: " + product.ObservedFunctions + ".";
-            var info = new RichTextBox
-            {
-                Dock = DockStyle.Fill, BorderStyle = BorderStyle.None,
-                ReadOnly = true, BackColor = PanelColor,
-                ForeColor = TextColor, Font = new Font("Segoe UI", 12f),
-                Text = "MÓDULO CENTRAL — " + _selected.DisplayName + "\n\n"
-                    + software + "\n\n"
-                    + "ETAPA ACTUAL: catálogo informativo, sin telemetría real.\n"
-                    + "Conexión serial: NO ABIERTA.\n"
-                    + "Identificación de hardware: SIN VALIDAR.\n"
-                    + "Escritura de parámetros / órdenes grupales: NO IMPLEMENTADA.\n\n"
-                    + "Próxima validación: consultar identidad y estado mediante operaciones\n"
-                    + "documentadas de solo lectura en banco supervisado.\n\n"
-                    + "ATENCIÓN: las pantallas similares entre marcas no garantizan\n"
-                    + "interoperabilidad de protocolos, firmware ni límites de seguridad."
-            };
-            panel.Controls.Add(info, 0, 1);
-        }
         _pageHost.Controls.Add(panel);
     }
 
@@ -300,33 +264,6 @@ public sealed class MainWindow : Form
         var grid = CreateGrid();
         grid.DataSource = new BindingList<JournalEntry>(_journal.OrderByDescending(x => x.Fecha).ToList());
         layout.Controls.Add(grid, 0, 2);
-        _pageHost.Controls.Add(layout);
-    }
-
-    private void ShowCompatibility()
-    {
-        var layout = PageFrame("Matriz de compatibilidad", "Se habilitará comunicación al validar cada modelo y firmware en banco.");
-        var info = new RichTextBox
-        {
-            Dock = DockStyle.Fill,
-            BorderStyle = BorderStyle.None,
-            ReadOnly = true,
-            BackColor = PanelColor,
-            ForeColor = TextColor,
-            Font = new Font("Consolas", 11f),
-            Text =
-                "FABRICANTE               FAMILIAS                 TELEMETRÍA REAL\n" +
-                "Trina Solar              NCU / TCU                PENDIENTE\n" +
-                "Powerway                 Por identificar          PENDIENTE\n" +
-                "Arctech Solar            Tracker + ComBox UI        PROTOCOLO PENDIENTE\n\n" +
-                "Detección automática: NO DISPONIBLE.\n" +
-                "Escritura de parámetros: NO IMPLEMENTADA.\n" +
-                "Control de movimiento: NO IMPLEMENTADO.\n" +
-                "Inventario de puertos COM: SÍ, sin abrir puertos.\n\n" +
-                "Se requiere comparar programas, manuales y tramas autorizadas\n" +
-                "de lectura antes de añadir conexiones reales."
-        };
-        layout.Controls.Add(info, 0, 1);
         _pageHost.Controls.Add(layout);
     }
 
