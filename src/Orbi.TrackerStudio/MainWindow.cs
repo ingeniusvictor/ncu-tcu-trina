@@ -88,7 +88,7 @@ public sealed class MainWindow : Form
             button.Click += (_, _) => SwitchPage(page);
             bar.Controls.Add(button);
         }
-        var status = MakeLabel("●  SOLO LECTURA / DEMO\n\nTrina · Powerway · Artech\nProtocolos por validar",
+        var status = MakeLabel("●  SOLO LECTURA / DEMO\n\nTrina · Powerway · Arctech\nProtocolos por validar",
             10, AccentColor, 24, 575, false, 190, 104);
         status.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         bar.Controls.Add(status);
@@ -318,7 +318,7 @@ public sealed class MainWindow : Form
                 "FABRICANTE               FAMILIAS                 TELEMETRÍA REAL\n" +
                 "Trina Solar              NCU / TCU                PENDIENTE\n" +
                 "Powerway                 Por identificar          PENDIENTE\n" +
-                "Artech / Arctech         Nombre y modelos         PENDIENTE\n\n" +
+                "Arctech Solar            Tracker + ComBox UI        PROTOCOLO PENDIENTE\n\n" +
                 "Detección automática: NO DISPONIBLE.\n" +
                 "Escritura de parámetros: NO IMPLEMENTADA.\n" +
                 "Control de movimiento: NO IMPLEMENTADO.\n" +
