@@ -88,7 +88,7 @@ public sealed partial class MainWindow : Form
             button.Click += (_, _) => SwitchPage(page);
             bar.Controls.Add(button);
         }
-        var status = MakeLabel("●  SOLO LECTURA / DEMO\n\nTrina · Powerway · Arctech\nProtocolos por validar",
+        var status = MakeLabel("●  SOLO LECTURA / DEMO\n\nP1  Trina Solar\nP2  Powerway\nArctech: referencia",
             10, AccentColor, 24, 575, false, 190, 104);
         status.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         bar.Controls.Add(status);
@@ -100,7 +100,7 @@ public sealed partial class MainWindow : Form
     {
         var p = new Panel { Dock = DockStyle.Fill };
         p.Controls.Add(MakeLabel("Estación universal de trackers", 23, TextColor, 8, 10, true, 775, 43));
-        p.Controls.Add(MakeLabel("NCU / TCU y controladores compatibles · interfaz unificada en español", 10, MutedColor, 10, 58, false, 760, 28));
+        p.Controls.Add(MakeLabel("Trina y Powerway primero · Arctech documentado · Interfaz unificada en español", 10, MutedColor, 10, 58, false, 760, 28));
         return p;
     }
 
