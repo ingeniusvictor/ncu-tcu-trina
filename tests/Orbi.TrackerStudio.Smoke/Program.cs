@@ -9,6 +9,9 @@ static void Check(bool condition, string message)
 
 Check(AdapterCatalog.All.Count == 3, "tres fabricantes catalogados");
 Check(AdapterCatalog.All.Select(x => x.Id).Distinct().Count() == 3, "identificadores únicos");
+Check(AdapterCatalog.All[0].Id == "trina" && AdapterCatalog.All[0].DevelopmentPriority.StartsWith("P1"), "Trina prioridad 1");
+Check(AdapterCatalog.All[1].Id == "powerway" && AdapterCatalog.All[1].DevelopmentPriority.StartsWith("P2"), "Powerway prioridad 2");
+Check(AdapterCatalog.All[2].Id == "arctech" && AdapterCatalog.All[2].DevelopmentPriority.Contains("diferida"), "Arctech prioridad diferida");
 Check(AdapterCatalog.All.All(x => !x.LiveTelemetryValidated && !x.SafeAutoDetectionValidated && !x.CommandsValidated),
     "ningún fabricante anuncia protocolo validado ni comandos operativos");
 
