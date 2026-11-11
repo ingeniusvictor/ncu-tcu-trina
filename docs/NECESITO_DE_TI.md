@@ -1,26 +1,28 @@
-# Insumos para avanzar hacia compatibilidad real
+# Insumos necesarios para avanzar hacia comunicación real
 
-## Prioridad 1: comparar los tres programas
-- [ ] EXE original de **Powerway**, versión exacta. Idealmente el archivo que usa el técnico y el nombre que muestra en Ayuda / Acerca de.
-- [ ] EXE original identificado como **Artech / Arctech** y una confirmación del nombre comercial correcto.
-- [ ] Si existen varios ejecutables por fabricante (NCU / TCU), enviar todos, indicando la función.
-- [ ] Capturas de las pantallas de monitoreo, alarmas y parámetros **sin IP de planta, usuarios, contraseñas ni números de serie sensibles**.
+**Recibido y analizado de manera estática (11-11-2026):**
+- [x] Trina NCU Monitor 2.71 (NCU).
+- [x] Trina TCU 2.73 Multi (80 canales) (TCU).
+- [x] Powerway Communication Box V2.161 (equivalente funcional NCU, por indicación del técnico).
+- [x] Powerway Tracker Test for Customer V5.2.2 (equivalente funcional TCU, por indicación del técnico).
 
-## Prioridad 2: identificar hardware
-- [ ] Una lista de modelos de NCU y TCU en servicio (placa o manual sin datos de planta).
-- [ ] Versión de firmware para cada modelo que se quiera incorporar.
-- [ ] Medio de conexión empleado (USB-RS485, Ethernet, radio, otro).
-- [ ] Parámetros de COM/baud y topología **solo si no comprometen información sensible**.
-- [ ] Si existe un manual, mapa Modbus, descripción de tramas o software development kit del fabricante, adjuntarlo.
+Ver [análisis Powerway](ANALISIS_POWERWAY_2026-11-11.md) y [matriz funcional](MATRIZ_FUNCIONAL.md).
 
-## Prioridad 3: verificación y autorizaciones
-- [ ] Confirmar que se permiten pruebas **de solo lectura** con equipos de laboratorio o banco no productivo.
-- [ ] Identificar una ventana de prueba supervisada y persona responsable de autorizarla.
-- [ ] Comparar la misma lectura contra software original y ORBI Tracker Studio.
-- [ ] Registrar fallas y condiciones de desconexión; jamás ensayar movimientos/escrituras sin procedimiento aprobado.
+## Lo prioritario ahora
+1. [ ] Adjuntar el ejecutable **Artech / Arctech** para NCU/comunicaciones, si existe, y aclarar el nombre comercial exacto del fabricante.
+2. [ ] Adjuntar el ejecutable **Artech / Arctech** para TCU/seguidores, si existe.
+3. [ ] Modelo de placa y versión de firmware de **un NCU/Communication Box y un TCU** de Powerway y de Trina, sin datos de planta.
+4. [ ] Manual técnico, mapa de registros, especificación de comunicación o SDK correspondiente a **consultas de identificación y estado de solo lectura**.
+5. [ ] Medio de conexión que se utiliza en terreno: USB-RS485, RS232, ZigBee, LoRa, Ethernet, conversor, etc.
+6. [ ] Capturas no sensibles de las pantallas de monitoreo, alarmas y conexión de los originales para comparar nomenclatura.
 
-## Lo que NO necesitamos
-- No enviar contraseñas, credenciales de acceso, datos de empleados, IP públicas, VPN, archivos confidenciales de parque ni claves/firmware propietarios.
-- No abrir ni capturar tráfico de una red de planta sin autorización.
+## Antes de cualquier integración con equipos reales
+- [ ] Acordar ensayos supervisados de solo lectura en banco o ambiente no productivo autorizado.
+- [ ] Comparar identificador de equipo, estados, alarmas y unidades con el software original.
+- [ ] Probar desconexión, timeout, errores CRC y frescura de telemetría.
+- [ ] Evaluar por separado escrituras, calibraciones, movimiento de trackers y cambios de seguridad: NO incluidos en las primeras versiones.
 
-**Mientras llegan esos insumos** se puede continuar diseño, traducción, accesibilidad, bitácora y pruebas offline. La primera prioridad de integración real será identificación del equipo + lecturas de estado, nunca escritura.
+**No compartir** contraseñas, credenciales de planta, archivos de configuración confidenciales, IP públicas, capturas con números de serie o datos personales, firmware ni tramas de producción sin autorización.
+
+## Lo que puedo continuar sin más materiales
+Diseño premium, internacionalización, reorganización NCU/TCU, validaciones offline, manejo de bitácora, empaquetado Windows, glosario técnico y pruebas automatizadas del núcleo desconectado.
