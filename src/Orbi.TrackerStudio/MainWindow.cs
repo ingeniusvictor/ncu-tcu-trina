@@ -220,13 +220,17 @@ public sealed partial class MainWindow : Form
             ForeColor = Color.Black, Left = 10, Top = 10, Height = 82, Width = 650,
             Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
         };
-        var save = MakeButton("Guardar nota", AccentColor, 670, 32, 134, 42, darkText: true);
+        var save = MakeButton("Guardar nota", AccentColor, 525, 32, 132, 42, darkText: true);
+        var exportNotes = MakeButton("Exportar notas", RaisedColor, 668, 32, 136, 42);
         save.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        exportNotes.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         input.Resize += (_, _) =>
         {
-            save.Left = Math.Max(300, input.ClientSize.Width - 150);
-            editor.Width = Math.Max(200, save.Left - 25);
+            exportNotes.Left = Math.Max(420, input.ClientSize.Width - 152);
+            save.Left = Math.Max(272, exportNotes.Left - 143);
+            editor.Width = Math.Max(185, save.Left - 26);
         };
+        exportNotes.Click += (_, _) => ExportJournalCsv();
         save.Click += (_, _) =>
         {
             var text = editor.Text.Trim();
@@ -259,12 +263,41 @@ public sealed partial class MainWindow : Form
         };
         input.Controls.Add(editor);
         input.Controls.Add(save);
+        input.Controls.Add(exportNotes);
         layout.Controls.Add(input, 0, 1);
 
         var grid = CreateGrid();
         grid.DataSource = new BindingList<JournalEntry>(_journal.OrderByDescending(x => x.Fecha).ToList());
         layout.Controls.Add(grid, 0, 2);
         _pageHost.Controls.Add(layout);
+    }
+
+    private void ExportJournalCsv()
+    {
+        if (_journal.Count == 0)
+        {
+            MessageBox.Show(this, "Todavía no existen notas para exportar.",
+                "Bitácora", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+        using var dialog = new SaveFileDialog
+        {
+            Title = "Exportar bitácora local a CSV",
+            Filter = "CSV delimitado por punto y coma (*.csv)|*.csv",
+            FileName = "ORBI_Bitacora_" + DateTime.Now.ToString("yyyyMMdd_HHmm") + ".csv"
+        };
+        if (dialog.ShowDialog(this) != DialogResult.OK) return;
+        try
+        {
+            JournalCsvExporter.Write(dialog.FileName, _journal);
+            MessageBox.Show(this, "Bitácora exportada correctamente. Revisa los datos antes de compartirlos.",
+                "ORBI Tracker Studio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(this, "Error al exportar notas: " + ex.Message,
+                "ORBI Tracker Studio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
     }
 
     private static TableLayoutPanel PageFrame(string title, string subtitle)
